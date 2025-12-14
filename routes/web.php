@@ -14,7 +14,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 ////DATA Show Methode////
 // Post Controller //
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts');
 //
 
 ////DATA Post Standard Methode////

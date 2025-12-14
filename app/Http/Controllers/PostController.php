@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -13,10 +14,10 @@ class PostController extends Controller
      */
     public function index()
     {
-            $all_post = DB::table('posts')->get();
+        $posts = Post::paginate(5);
 
-            return view('pages.blog', [
-            'posts' => $all_post
+        return view('admin.posts', [
+            'posts' => $posts
         ]);
     }
 
@@ -27,13 +28,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        $title      = "Mahbub";
-        $thumbnail  = "http://127.0.0.1:8000/assets/img/blog-post.png";
-        $excerpt    = "This is a standard data post/insert methode";
-        
+        $title = "Mahbub";
+        $thumbnail = "http://127.0.0.1:8000/assets/img/blog-post.png";
+        $excerpt = "This is a standard data post/insert methode";
+
         $insert_post = DB::insert("INSERT INTO posts (title, thumbnail, excerpt) VALUES (?, ?, ?)", [$title, $thumbnail, $excerpt]);
 
-        if($insert_post){
+        if ($insert_post) {
             return "post has been inserted";
         }
     }
@@ -70,9 +71,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $update_post = DB::table("posts")
-        // ->where('id', '<>', '8') //All will be chenge without id 8
-        ->where('id', '=', '8') // Or same equel ('id', '8')
-        ->update(['thumbnail'=> 'https://www.dreamwebdev.com/wp-content/uploads/2021/08/Shah-Mahbubur-Rahman-Webdev.jpg']);
+            // ->where('id', '<>', '8') //All will be chenge without id 8
+            ->where('id', '=', '8') // Or same equel ('id', '8')
+            ->update(['thumbnail' => 'https://www.dreamwebdev.com/wp-content/uploads/2021/08/Shah-Mahbubur-Rahman-Webdev.jpg']);
     }
 
     /**
@@ -97,7 +98,7 @@ class PostController extends Controller
     {
         $post_id = 9;
         DB::table("posts")
-        ->where('id', $post_id)
-        ->delete();
+            ->where('id', $post_id)
+            ->delete();
     }
 }
