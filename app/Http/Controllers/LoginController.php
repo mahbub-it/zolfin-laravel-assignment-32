@@ -34,7 +34,7 @@ class LoginController extends Controller
 
     public function dashboard()
     {
-        return view('authentication.dashboard', [
+        return view('admin.dashboard', [
             'title' => 'Dashboard'
         ]);
     }
