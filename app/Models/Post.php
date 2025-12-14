@@ -10,10 +10,10 @@ class Post extends Model
 
     // protected $table = 'another_posts';
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'id';
+    // }
 
     public function category()
     {

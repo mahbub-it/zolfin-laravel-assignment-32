@@ -22,7 +22,7 @@ Route::get('/create-post', [PostController::class, 'create']);
 //
 
 ////DATA Update Standard Methode////
-Route::get('/update-post', [PostController::class, 'edit']);
+Route::get('/admin/post/{post}', [PostController::class, 'edit'])->name('admin.post.edit');
 //
 
 ////Or Another Way to DATA Delete ////

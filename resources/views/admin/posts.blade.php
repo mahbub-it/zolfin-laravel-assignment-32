@@ -36,8 +36,8 @@
                                         <th> Post Category </th>
                                         <th> Post Author </th>
                                         <th> Total Views </th>
-                                        <th> Published on </th>
                                         <th> Updated on </th>
+                                        <th> <i class="mdi mdi-dots-horizontal"></i> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,13 +52,14 @@
                                             <td> {{ $post->category->name }} </td>
                                             <td> {{ $post->user->name }} </td>
                                             <td> {{ $post->views }} </td>
-                                            <td> {{ date('F d, Y', strtotime($post->created_at)) }} </td>
                                             <td> {{ date('F d, Y', strtotime($post->updated_at)) }} </td>
+                                            <td> <a class="btn btn-info" href="{{route('admin.post.edit', $post->id)}}">Edit</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="mt-2">
+                            <div class=" mt-2">
                                 {{$posts->links('vendor.pagination.bootstrap-5')}}
                             </div>
                         </div>

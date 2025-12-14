@@ -74,12 +74,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $update_post = DB::table("posts")
-            // ->where('id', '<>', '8') //All will be chenge without id 8
-            ->where('id', '=', '8') // Or same equel ('id', '8')
-            ->update(['thumbnail' => 'https://www.dreamwebdev.com/wp-content/uploads/2021/08/Shah-Mahbubur-Rahman-Webdev.jpg']);
+        return view('admin.edit-post');
     }
 
     /**
