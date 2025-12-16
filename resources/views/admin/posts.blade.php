@@ -11,11 +11,7 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            @if (session('success'))
-                                <div class="alert alert-danger">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
+
                             <div class="row">
                                 <div class="col">
                                     <h2 style="font-size: 24px;" class="card-title">All posts</h2>

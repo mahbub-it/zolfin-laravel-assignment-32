@@ -16,18 +16,29 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
+
                             <h4 class="card-title">Create New Post</h4>
                             <hr>
-                            <form class="forms-sample" method="POST" action="{{ route('admin.post.create') }}">
+                            <form class="forms-sample" method="POST" action="{{ route('admin.post.store') }}">
                                 @csrf
 
                                 <div class="form-group">
                                     <label for="posttitle">Post Title</label>
+                                    @error('title')
+                                        <div class="alert alert-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <input type="text" name="title" class="form-control" id="posttitle"
                                         placeholder="Post Title" value="{{ old('title') }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Post Thumbnail</label>
+                                    @error('thumbnail')
+                                        <div class="alert alert-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <input type="file" name="img[]" class="file-upload-default">
                                     <div class="input-group col-xs-12">
                                         <input type="text" name="thumbnail" class="form-control file-upload-info"
@@ -39,15 +50,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="postexcerpt">Post Excerpt</label>
-                                    <textarea class="form-control" name="excerpt" id="postexcerpt" rows="2">
-                                                        {{ old('excerpt') }}
-                                                    </textarea>
+                                    @error('excerpt')
+                                        <div class="alert alert-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                    <textarea class="form-control" name="excerpt" id="postexcerpt"
+                                        rows="2">{{ old('excerpt') }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="postcontent">Post Content</label>
+                                    @error('content')
+                                        <div class="alert alert-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <textarea class="form-control" name="content" id="postcontent" rows="2">
-                                                        {{ old('content') }}
-                                                </textarea>
+                                                                                                                            {{ old('content') }}
+                                                                                                                    </textarea>
                                 </div>
 
                                 <div class="form-group">

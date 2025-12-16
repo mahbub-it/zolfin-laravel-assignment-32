@@ -20,6 +20,7 @@ Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts'
 ////DATA Post Standard Methode////
 Route::get('/admin/post/create', [PostController::class, 'create'])->name('admin.post.create');
 //
+Route::post('/admin/post/store', [PostController::class, 'store'])->name('admin.post.store');
 
 ////DATA Update Standard Methode////
 Route::get('/admin/post/{post}', [PostController::class, 'edit'])->name('admin.post.edit');

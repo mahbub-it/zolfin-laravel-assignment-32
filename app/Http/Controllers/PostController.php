@@ -20,7 +20,7 @@ class PostController extends Controller
         $posts = Post::where('title', 'like', '%' . $keyword . '%')
             ->orWhere('excerpt', 'like', '%' . $keyword . '%')
             ->orWhere('content', 'like', '%' . $keyword . '%')
-            ->paginate(5);
+            ->orderBy('id', 'desc')->paginate(6);
 
         return view('admin.posts', [
             'posts' => $posts,
@@ -41,16 +41,22 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * For store data to database
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     * 
-     */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'excerpt' => 'required',
+            'thumbnail' => 'required',
+
+        ]);
+        $request['slug'] = implode('-', explode(' ', $request->title));
+        $request['user_id'] = auth()->user()->id;
+        $request['views'] = 0;
+
+
+        Post::create($request->all());
+        return redirect()->route('admin.posts')->with('message', 'Post has been published...');
     }
 
     /**
