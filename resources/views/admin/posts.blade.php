@@ -11,7 +11,11 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-
+                            @if(session()->get('message'))
+                                <div class="alert alert-success">
+                                    {{session()->get('message')}}
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col">
                                     <h2 style="font-size: 24px;" class="card-title">All posts</h2>

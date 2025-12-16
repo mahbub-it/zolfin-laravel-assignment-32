@@ -16,6 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $keyword = request('search');
+        $title = "All Posts";
 
         $posts = Post::where('title', 'like', '%' . $keyword . '%')
             ->orWhere('excerpt', 'like', '%' . $keyword . '%')
@@ -24,7 +25,8 @@ class PostController extends Controller
 
         return view('admin.posts', [
             'posts' => $posts,
-            'keyword' => $keyword
+            'keyword' => $keyword,
+            'title' => $title
         ]);
     }
 
@@ -36,8 +38,10 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('admin.create-post', [
-            'categories' => $categories
+            'categories' => $categories,
+            'title' => 'Create New Post'
         ]);
     }
 
@@ -50,12 +54,13 @@ class PostController extends Controller
             'thumbnail' => 'required',
 
         ]);
-        $request['slug'] = implode('-', explode(' ', $request->title));
+        $request['slug'] = implode('-', explode(' ', $request->title)) . '-' . time();
         $request['user_id'] = auth()->user()->id;
         $request['views'] = 0;
 
 
         Post::create($request->all());
+
         return redirect()->route('admin.posts')->with('message', 'Post has been published...');
     }
 
