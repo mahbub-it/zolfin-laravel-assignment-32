@@ -63,8 +63,8 @@
                             <form method="POST" action="{{ route('loginProcess') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <input value="{{ old('email') }}" type="email" name="email" class="form-control"
-                                        placeholder="Email address">
+                                    <input value="{{ old('login_id') }}" type="text" name="login_id" class="form-control"
+                                        placeholder="Email address or Username">
                                 </div>
                                 <div class="mb-3">
                                     <input value="" type="password" name="password" class="form-control"

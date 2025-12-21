@@ -29,7 +29,7 @@ class LoginController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
-        $user->password = bcrypt($request->password);
+        $user->password = $request->password;
 
         $photo_name = time() . '-' . $request->file('photo')->getClientOriginalName();
         $request->file('photo')->storeAs('/public/images', $photo_name);
@@ -60,10 +60,17 @@ class LoginController extends Controller
 
     public function loginPost(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email|exists:users,email',
+        $request->validate([
+            'login_id' => 'required',
             'password' => 'required|min:8',
         ]);
+
+        $login_type = filter_var($request->login_id, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $credentials = [
+            $login_type => $request->login_id,
+            'password' => $request->password
+        ];
 
         if (Auth::attempt($credentials)) {
 
