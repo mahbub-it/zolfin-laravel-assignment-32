@@ -15,27 +15,16 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 ////DATA Show Methode////
 // Post Controller //
-Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts');
-//
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::get('posts', [PostController::class, 'index'])->name('admin.posts');
+    Route::get('post/create', [PostController::class, 'create'])->name('admin.post.create');
+    Route::post('post/store', [PostController::class, 'store'])->name('admin.post.store');
+    Route::get('post/{post}', [PostController::class, 'edit'])->name('admin.post.edit');
+    Route::put('post/update/{post}', [PostController::class, 'update'])->name('admin.post.update');
+    Route::delete('post/delete/{post}', [PostController::class, 'destroy'])->name('admin.post.delete');
+});
 
-////DATA Post Standard Methode////
-Route::get('/admin/post/create', [PostController::class, 'create'])->name('admin.post.create');
-//
-Route::post('/admin/post/store', [PostController::class, 'store'])->name('admin.post.store');
-
-////DATA Update Standard Methode////
-Route::get('/admin/post/{post}', [PostController::class, 'edit'])->name('admin.post.edit');
-
-Route::put('/admin/post/update/{post}', [PostController::class, 'update'])->name('admin.post.update');
-//
-
-////Or Another Way to DATA Delete ////
-Route::delete('/admin/post/delete/{post}', [PostController::class, 'destroy'])->name('admin.post.delete');
-//
-
-//
 Route::get('/blog', [BlogController::class, 'index'])->name("blog");
-//
 
 Route::get('/article/{post}', [BlogController::class, 'single'])->name('single-post');
 
@@ -96,3 +85,8 @@ Route::post('img-upload', function (Request $request) {
     return 'Image uploaded successfully';
 
 })->name('upload-img');
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+    return 'Storage link created';
+});
