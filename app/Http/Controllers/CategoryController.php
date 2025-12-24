@@ -37,7 +37,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->category_name;
+        $category->slug = implode("-", explode(" ", $request->category_name));
+        $category->save();
+
+        if ($category->save()) {
+            return back()->with("message", "Category created successfully");
+        } else {
+            return back()->with("message", "Category created failed");
+        }
     }
 
     /**

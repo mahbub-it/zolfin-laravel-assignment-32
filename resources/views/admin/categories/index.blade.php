@@ -8,19 +8,28 @@
         <div class="content-wrapper">
             <div class="row">
 
-                <div class="col-lg-6 grid-margin stretch-card">
+                <div class="col-lg-6 grid-margin stretch-card ">
                     <div class="card">
                         <div class="card-body">
 
-                            <div class="row">
-                                <div class="col">
-                                    <h2 style="font-size: 24px;" class="card-title">Add new category</h2>
+                            @if(session()->get('message'))
+                                <div class="alert alert-success">
+                                    {{session()->get('message')}}
                                 </div>
+                            @endif
+
+                            <div class="row mt-5 mb-5">
+                                <div class="col text-center">
+                                    <h2 style="font-size: 24px;" class="text-dark card-title">Add new category</h2>
+                                </div>
+
                             </div>
 
                             <div class="category-form">
-                                <form action="">
-                                    <input class="form-control mb-2" type="text" placeholder="Category name" />
+                                <form action="{{ route('categories.store') }}" method="POST">
+                                    @csrf
+                                    <input class="form-control mb-2" type="text" name="category_name"
+                                        placeholder="Category name" />
 
                                     <button class="btn btn-primary" type="submit">Create category</button>
                                 </form>
@@ -34,11 +43,7 @@
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            @if(session()->get('message'))
-                                <div class="alert alert-success">
-                                    {{session()->get('message')}}
-                                </div>
-                            @endif
+
                             <div class="row">
                                 <div class="col">
                                     <h2 style="font-size: 24px;" class="card-title">All Categories</h2>
