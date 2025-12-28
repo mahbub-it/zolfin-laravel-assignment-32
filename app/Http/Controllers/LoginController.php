@@ -17,41 +17,45 @@ class LoginController extends Controller
     public function registerPost(Request $request)
     {
         // Check for upload errors that happened at the system level
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            if (!$file->isValid()) {
-                $errorCode = $file->getError();
-                $errorMessage = $file->getErrorMessage();
 
-                \Illuminate\Support\Facades\Log::error("Registration Upload Failed: Code $errorCode - $errorMessage");
+        // if ($request->hasFile('photo')) {
+        //     $file = $request->file('photo');
+        //     if (!$file->isValid()) {
+        //         $errorCode = $file->getError();
+        //         $errorMessage = $file->getErrorMessage();
 
-                if ($errorCode === UPLOAD_ERR_NO_TMP_DIR) {
-                    return back()->with('error', 'Server Error: Missing temporary folder. Please contact administrator.');
-                }
+        //         \Illuminate\Support\Facades\Log::error("Registration Upload Failed: Code $errorCode - $errorMessage");
 
-                return back()->withErrors(['photo' => "Upload failed: $errorMessage"]);
-            }
-        }
+        //         if ($errorCode === UPLOAD_ERR_NO_TMP_DIR) {
+        //             return back()->with('error', 'Server Error: Missing temporary folder. Please contact administrator.');
+        //         }
+
+        //         return back()->withErrors(['photo' => "Upload failed: $errorMessage"]);
+        //     }
+        // }
 
         $info = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
             'username' => 'required',
-            'password' => 'required|min:8',
             'photo' => 'required|image|mimes:jpeg,png,jpg',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+
         ]);
 
         $user = new User();
 
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->username = $request->username;
-        $user->password = $request->password;
 
         $photo_name = time() . '-' . $request->file('photo')->getClientOriginalName();
         $request->file('photo')->storeAs('/public/images', $photo_name);
 
         $user->photo = $photo_name;
+
+        $user->email = $request->email;
+        $user->password = $request->password;
+
 
         if ($user->save()) {
 
