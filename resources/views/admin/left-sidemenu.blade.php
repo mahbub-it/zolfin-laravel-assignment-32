@@ -34,9 +34,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.index') }}">All posts</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('posts.create') }}">Create new post</a>
-                    </li>
+                    @if(auth()->user()->user_role == 'Administrator')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.create') }}">Create new post</a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
                     </li>

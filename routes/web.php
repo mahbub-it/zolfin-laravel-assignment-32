@@ -48,3 +48,9 @@ Route::get('register', [LoginController::class, 'register'])->name('register');
 
 // Handle the form submission
 Route::post('register', [LoginController::class, 'registerPost'])->name('registerProcess');
+
+Route::get('secret/migrate', function () {
+    Artisan::call('migrate');
+
+    return 'Migration done';
+});

@@ -37,12 +37,18 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
 
-        return view('admin.posts.create-post', [
-            'categories' => $categories,
-            'title' => 'Create New Post'
-        ]);
+        if (auth()->user()->user_role == 'Administrator') {
+
+            $categories = Category::all();
+
+            return view('admin.posts.create-post', [
+                'categories' => $categories,
+                'title' => 'Create New Post'
+            ]);
+        } else {
+            return 'You are not authorized to create a post...';
+        }
     }
 
     public function store(Request $request)

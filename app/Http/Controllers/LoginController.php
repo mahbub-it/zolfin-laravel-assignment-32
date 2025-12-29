@@ -55,6 +55,7 @@ class LoginController extends Controller
 
         $user->email = $request->email;
         $user->password = $request->password;
+        $user->user_role = 'Editor';
 
 
         if ($user->save()) {
