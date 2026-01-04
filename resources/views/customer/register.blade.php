@@ -42,7 +42,7 @@
                                 </div>
                             @endif
 
-                            <h4>Create an Account</h4>
+                            <h4>Customer Registration Form</h4>
                             <hr> <br>
                             <form method="POST" action="{{ route('customer.registerProcess') }}" enctype="multipart/form-data">
                                 @csrf
@@ -51,15 +51,6 @@
                                         placeholder="Full name">
                                 </div>
                                 @error('name')
-                                    <div class="mb-4 text-sm text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                <div class="mb-3">
-                                    <input value="{{ old('email') }}" type="email" name="email" class="form-control"
-                                        placeholder="Email address">
-                                </div>
-                                @error('email')
                                     <div class="mb-4 text-sm text-danger">
                                         {{ $message }}
                                     </div>
@@ -74,16 +65,6 @@
                                     </div>
                                 @enderror
                                 <div class="mb-3">
-                                    <input value="" type="password" name="password" class="form-control"
-                                        placeholder="Password">
-                                </div>
-                                @error('password')
-                                    <div class="mb-4 text-sm text-danger">
-                                        {{ $message }}
-                                    </div>
-
-                                @enderror
-                                <div class="mb-3">
                                     <input value="{{ old('photo') }}" type="file" name="photo" class="form-control"
                                         placeholder="Photo URL">
                                 </div>
@@ -93,7 +74,25 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-
+                                <div class="mb-3">
+                                    <input value="{{ old('email') }}" type="email" name="email" class="form-control"
+                                        placeholder="Email address">
+                                </div>
+                                @error('email')
+                                    <div class="mb-4 text-sm text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="mb-3">
+                                    <input value="" type="password" name="password" class="form-control"
+                                        placeholder="Password">
+                                </div>
+                                @error('password')
+                                    <div class="mb-4 text-sm text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                
                                 <div class="mb-5">
                                     <input type="submit" class="btn btn-primary" value="Create Account">
                                 </div>

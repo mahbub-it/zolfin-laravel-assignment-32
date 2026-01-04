@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -46,18 +47,39 @@ Route::get('/users/{user:username}', [BlogController::class, 'userBasedPost'])->
 Route::get('login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('login', [LoginController::class, 'loginPost'])->name('loginProcess');
 
-Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware('auth')->name('dashboard');
-Route::post('logout', [LoginController::class, 'signout'])->middleware('auth')->name('logout');
-
-
 // Show the registration form
 Route::get('register', [LoginController::class, 'register'])->name('register');
-
-// Handle the form submission
 Route::post('register', [LoginController::class, 'registerPost'])->name('registerProcess');
+
+Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+Route::post('logout', [LoginController::class, 'signout'])->name('logout')->middleware('auth');
 
 Route::get('secret/migrate', function () {
     Artisan::call('migrate');
+    Artisan::call('db:seed');
 
     return 'Migration done';
 });
+
+Route::group(
+    [
+        'prefix' => 'customer',
+        'as' => 'customer.'
+    ],
+    function () {
+        Route::get('register', [CustomerController::class, 'register'])->name('register')->middleware('guest');
+        Route::post('register', [CustomerController::class, 'registerPost'])->name('registerProcess');
+
+        Route::get('login', [CustomerController::class, 'login'])->name('login')->middleware('guest');
+        Route::post('login', [CustomerController::class, 'loginPost'])->name('loginProcess');
+
+        Route::group([
+            'middleware' => 'is_customer'
+        ], function () {
+            Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
+        });
+
+        Route::post('logout', [CustomerController::class, 'signout'])->name('logout');
+
+    }
+);

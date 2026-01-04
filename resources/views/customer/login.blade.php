@@ -58,13 +58,13 @@
                                 </div>
                             @endif
 
-                            <h4>Login</h4>
+                            <h4>Customer Login</h4>
                             <hr> <br>
-                            <form method="POST" action="{{ route('loginProcess') }}">
+                            <form method="post" action="{{ route('customer.loginProcess') }}">
+
                                 @csrf
                                 <div class="mb-3">
-                                    <input value="{{ old('login_id') }}" type="text" name="login_id" class="form-control"
-                                        placeholder="Email address or Username">
+                                    <input value="{{ old('email') }}" type="text" name="email" class="form-control" placeholder="Email address">
                                 </div>
                                 <div class="mb-3">
                                     <input value="" type="password" name="password" class="form-control"
