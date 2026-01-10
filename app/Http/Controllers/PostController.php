@@ -100,9 +100,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Gate::denies('edit-post', $post)) {
-            abort(403);
-        }
+        Gate::authorize('edit-post', $post);
 
         $category = Category::all();
         return view('admin.posts.edit-post', [
