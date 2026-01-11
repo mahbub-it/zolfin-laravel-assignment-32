@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -83,3 +85,12 @@ Route::group(
 
     }
 );
+
+Route::get('/permission', function () {
+
+    $role = Role::create(['name' => 'Editor']);
+
+    $permission = Permission::create(['name' => 'Create Post']);
+
+    $permission->assignRole($role);
+});
