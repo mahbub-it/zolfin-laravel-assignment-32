@@ -24,17 +24,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     ]);
 
-    Route::group(['middleware' => 'is_admin'], function () {
-        Route::resources([
+    Route::resources([
 
-            'categories' => CategoryController::class,
-            'users' => UserController::class
-        ]);
-    });
-
-    Route::get('my-profile', [UserController::class, 'my_profile'])->name('user.profile');
-
+        'categories' => CategoryController::class,
+        'users' => UserController::class
+    ]);
 });
+
+Route::get('my-profile', [UserController::class, 'my_profile'])->name('user.profile');
+
+
 
 
 Route::get('/blog', [BlogController::class, 'index'])->name("blog");
@@ -107,7 +106,7 @@ Route::get('/permission', function () {
     // $user->syncPermissions(['Create Post', 'Edit Posts']);
     // echo $user->hasPermissionTo('Create Post'); //for check Create Post permission 
 
-    $user->assignRole('editor');
+    echo $user->can('create post');
 
     // dd($user);
 });
