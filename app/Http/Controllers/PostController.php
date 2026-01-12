@@ -39,6 +39,10 @@ class PostController extends Controller
     public function create()
     {
 
+        // if (!auth()->user()->hasPermissionTo('Create Post')) {
+        if (auth()->user()->cannot('Create Post')) {
+            abort(403);
+        }
         // if (auth()->user()->user_role == 'Administrator') {
 
         $categories = Category::all();
@@ -100,7 +104,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        Gate::authorize('edit-post', $post);
+        // Gate::authorize('edit-post', $post);
+
+        if (auth()->user()->cannot('edit-post', $post)) {
+            abort(403);
+        }
 
         $category = Category::all();
         return view('admin.posts.edit-post', [

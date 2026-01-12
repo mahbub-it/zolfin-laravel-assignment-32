@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -88,9 +89,25 @@ Route::group(
 
 Route::get('/permission', function () {
 
-    $role = Role::create(['name' => 'Editor']);
+    // $role = Role::create(['name' => 'Editor']);
+    // $role = Role::create(['name' => 'Creator']);
 
-    $permission = Permission::create(['name' => 'Create Post']);
+    // $permission1 = Permission::create(['name' => 'Create Post']);
+    // $permission2 = Permission::create(['name' => 'Edit Post']);
 
-    $permission->assignRole($role);
+    // $permission1->assignRole($role);
+    // $permission2->assignRole($role);
+
+    // $user = User::firstWhere('id', 38);
+
+    // $user = Post::firstWhere('id', 39);
+
+    $user = User::find(34);
+
+    // $user->syncPermissions(['Create Post', 'Edit Posts']);
+    // echo $user->hasPermissionTo('Create Post'); //for check Create Post permission 
+
+    $user->assignRole('editor');
+
+    // dd($user);
 });

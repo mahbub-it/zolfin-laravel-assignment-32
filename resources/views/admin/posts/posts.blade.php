@@ -62,12 +62,18 @@
                                             <td> {{ $post->views }} </td>
                                             <td> {{ date('F d, Y', strtotime($post->updated_at)) }} </td>
                                             <td>
+                                                
+                                                @can('edit-post', $post)
                                                 <a class="btn btn-info" href="{{route('posts.edit', $post->id)}}">Edit</a>
+                                                @endcan 
+                                                
+                                                @can('delete-post', $post)
                                                 <form action="{{route('posts.destroy', $post->id)}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger mt-2">Delete</button>
                                                 </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

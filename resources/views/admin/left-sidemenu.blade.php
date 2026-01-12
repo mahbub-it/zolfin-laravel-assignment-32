@@ -46,7 +46,7 @@
             </div>
         </li>
 
-        @if(auth()->user()->is_admin)
+        {{-- @if(auth()->user()->is_admin) --}}
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-users" aria-expanded="false" aria-controls="ui-users">
@@ -139,7 +139,7 @@
                     </ul>
                 </div>
             </li>
-        @endif
+        {{-- @endif --}}
 
     </ul>
 </nav>
