@@ -40,7 +40,7 @@ class LoginController extends Controller
 
         if ($user->save()) {
 
-            Auth::attempt(['email' => $request->email, 'password' => bcrypt($request->password)]);
+            Auth::attempt(['email' => $request->email, 'password' => $request->password]);
 
             return redirect('/dashboard')->with('message', 'User Created Successfully...');
         }

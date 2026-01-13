@@ -11,7 +11,7 @@
                 </div>
                 <div class="text-wrapper">
                     <p class="profile-name">{{ auth()->user()->name }}</p>
-                    <p class="designation">{{ auth()->user()->username }}</p>
+                    <p class="designation">Premium user</p>
                 </div>
             </a>
         </li>
