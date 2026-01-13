@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PaymentProcessed;
+use App\Mail\PaymentReceived;
 
 class PaymentController extends Controller
 {
@@ -35,7 +35,7 @@ class PaymentController extends Controller
 
         $user = User::find(54);
 
-        Mail::to($user)->send(new PaymentProcessed($user));
+        Mail::to($user)->send(new PaymentReceived());
         return redirect()->back()->with('message', 'Payment Mail Sent Successfully');
     }
 }

@@ -30,8 +30,12 @@ class PaymentController extends Controller
         return redirect()->back()->with('message', 'Payment Mail Sent Successfully');
     }
 }
---------------------------------------------------------------
+
+-------------------------------------------------------------
 
 - php artisan make:mail PaymentProcessed
 
-
+-------------------------------------------------------------
+- php artisan vendor:publish --tag=laravel-mail
+- php artisan make:mail PaymentReceived --markdown=emails.payment-received
+-------------------------------------------------------------
