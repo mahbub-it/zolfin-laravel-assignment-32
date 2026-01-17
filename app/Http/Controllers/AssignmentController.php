@@ -24,11 +24,12 @@ class AssignmentController extends Controller
         $user = User::find(54);
 
         $score = request('score');
+        $status = 'Good';
 
         // Notification::send($user, new ScoreNotification($score));
         // return redirect()->back()->with('success', 'Score sent successfully');
 
-        $user->notify(new ScoreNotification($score));
+        $user->notify(new ScoreNotification($score, $status));
         return redirect()->back()->with('success', 'Score sent successfully');
     }
 }

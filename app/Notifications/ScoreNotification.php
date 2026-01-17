@@ -13,12 +13,15 @@ class ScoreNotification extends Notification
 
     protected $score;
 
+    protected $status;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct($score)
+    public function __construct($score, $status)
     {
         $this->score = $score;
+        $this->status = $status;
     }
 
     /**
@@ -28,7 +31,7 @@ class ScoreNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return $notifiable->prefers_sms ? ['sms'] : ['mail', 'database'];
     }
 
     /**
@@ -52,7 +55,8 @@ class ScoreNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'score' => $this->score,
+            'status' => $this->status,
         ];
     }
 }

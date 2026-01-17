@@ -15,6 +15,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\NotificationController;
 
 
 
@@ -121,3 +122,5 @@ Route::post('make-payment', [PaymentController::class, 'store'])->name('send-pay
 Route::get('/assignment', [AssignmentController::class, 'single_assignment'])->name('assignment');
 
 Route::post('/assignment', [AssignmentController::class, 'assignment_score'])->name('providescore');
+
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');

@@ -46,4 +46,11 @@ class PaymentController extends Controller
 
 -------------------------------------------------------------
 
+- php artisan notifications:table
+- php artisan migrate
+- php artisan make:controller NotificationController
+- php artisan vendor:publish --tag=laravel-notifications
+-------------------------------------------------------------
+
+
 
