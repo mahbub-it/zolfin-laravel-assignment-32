@@ -127,6 +127,7 @@ Route::get('/notifications', [NotificationController::class, 'index'])->name('no
 
 Route::get('/csrf-test', function () {
     return view('csrf-test');
+<<<<<<< Updated upstream
 });
 
 Route::post('/csrf-test', function () {
@@ -134,3 +135,6 @@ Route::post('/csrf-test', function () {
     return 'Success';
 
 })->name('csrf-testing');
+=======
+});
+>>>>>>> Stashed changes
