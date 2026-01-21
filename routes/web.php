@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BlogController;
@@ -16,7 +15,7 @@ use App\Models\User;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\NotificationController;
-
+use Illuminate\Support\Facades\Artisan;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -127,7 +126,6 @@ Route::get('/notifications', [NotificationController::class, 'index'])->name('no
 
 Route::get('/csrf-test', function () {
     return view('csrf-test');
-<<<<<<< Updated upstream
 });
 
 Route::post('/csrf-test', function () {
@@ -135,6 +133,3 @@ Route::post('/csrf-test', function () {
     return 'Success';
 
 })->name('csrf-testing');
-=======
-});
->>>>>>> Stashed changes
