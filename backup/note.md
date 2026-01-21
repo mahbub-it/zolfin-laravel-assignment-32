@@ -4,8 +4,6 @@
 - php artisan make:controller PaymentController
 - Route::get('make-payment', [PaymentController::class, 'view']);
 
-<?php
-
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,7 +27,8 @@ class PaymentController extends Controller
 
         return redirect()->back()->with('message', 'Payment Mail Sent Successfully');
     }
-}
+    }
+
 
 -------------------------------------------------------------
 
