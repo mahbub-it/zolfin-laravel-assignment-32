@@ -87,8 +87,11 @@
                     </div>
                 </div>
                 <div class="col-xl-2 d-none d-xl-block">
-                    <a href="#" class="t-link bttn bttn-sm bttn-round bttn-primary">
-                        +1 (008) 249-8596
+                    @php
+                        $mahbubNumber = '+880 1714 497 282'; // E.164 format is recommended
+                    @endphp
+                    <a href="tel:{{ $mahbubNumber }}" class="t-link bttn bttn-sm bttn-round bttn-primary">
+                        {{ $mahbubNumber }}
                     </a>
                 </div>
             </div>

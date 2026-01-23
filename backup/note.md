@@ -66,7 +66,11 @@ class PaymentController extends Controller
 - link: https://google.dreamwebdev.com/0171449728201974497282-Dream-web-dev
 --------------------------------------------------------------
 
-
+## Class 30 Notes
+# Code
+- php artisan session:table
+- php artisan migrate
+- SESSION_DRIVER=file to SESSION_DRIVER=database in .env file
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -114,6 +115,11 @@ class UserController extends Controller
     public function my_profile()
     {
         $user = auth()->user();
+
+        // Log::info($user->username . ' is logged in');
+        // Log::emergency($user->username . ' is logged in');
+
         return view('admin.users.my-profile', compact('user'));
     }
 }
+

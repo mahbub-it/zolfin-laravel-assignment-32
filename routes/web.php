@@ -16,7 +16,8 @@ use App\Models\User;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\NotificationController;
-
+use App\Http\Controllers\ContactController;
+use Illuminate\Support\Number;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -134,3 +135,57 @@ Route::post('/csrf-test', function () {
     return 'Success';
 
 })->name('csrf-testing');
+
+
+
+
+// Route::get('/test-phone', function () {
+//     $phoneNumber = '+8801714497282';
+
+//     return $phoneNumber;
+// });
+
+//  return back()->with('success', 'User created successfully');
+
+// Route::get('/testnew/{phoneNumber}', function ($phoneNumber) {
+//     return redirect('http://google.com');
+// });
+
+// Route::get('/testnew/1', function () {
+//     return request()->cookie('anything');
+// })->name('testnew');
+
+// Route::get('/testdownload', function () {
+//     if (file_exists(public_path() . '/storage/assignment/1.pdf')) {
+//         return response()->download(public_path() . '/storage/assignment/1.pdf', 'assignment.pdf');
+//     }
+//     return 'File not found';
+// });
+
+// Route::get('/testdownload', function () {
+//     if (file_exists(public_path() . '/storage/assignment/1.pdf')) {
+//         return response()->file(public_path() . '/storage/assignment/1.pdf', 'assignment.pdf');
+//     }
+//     return 'File not found';
+// });
+
+// Route::get('pageone', function () {
+//     return 'first page <a href="pagetwo">Go to page two</a>';
+// });
+
+// Route::get('pagetwo', function () {
+//     return 'second page <a href="pageone">Go to page one</a>';
+// });
+
+Route::get('/testsession', function () {
+    session()->put(['name' => 'Mahbub']);
+});
+Route::get('/testsession2', function () {
+    return session()->get('name');
+});
+
+Route::get('/clearsession', function () {
+    session()->forget('name');
+    return 'Session cleared';
+});
+// php artisan session:table then php artisan migrate then SESSION_DRIVER=file to SESSION_DRIVER=database in .env file
