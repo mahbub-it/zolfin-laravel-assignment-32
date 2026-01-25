@@ -18,6 +18,8 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Number;
+use Illuminate\Support\Facades\Collect;
+use Illuminate\Support\Facades\Map;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -189,3 +191,16 @@ Route::get('/clearsession', function () {
     return 'Session cleared';
 });
 // php artisan session:table then php artisan migrate then SESSION_DRIVER=file to SESSION_DRIVER=database in .env file
+
+Route::get('/testcollect', function () {
+    // $test_collect = ['one', 'two', 'three', 1, 2, 3, 4, 5];
+
+    // return collect($test_collect)->count();
+
+    // return collect($test_collect)->map(function ($item) {
+    //     return 'I got ' . strtoupper($item) . ' taka ';
+    // });
+
+    $collection = collect([1, 2, 3, 4, 5]);
+    return $collection->sum();
+});
