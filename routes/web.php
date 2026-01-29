@@ -21,6 +21,7 @@ use Illuminate\Support\Number;
 use Illuminate\Support\Facades\Collect;
 use Illuminate\Support\Facades\Map;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -223,5 +224,17 @@ Route::get('/decrypt-value', function () {
     $encrypted = 'eyJpdiI6IlJrOEJaWTU3UEk2aGZoUDV4bjVWd3c9PSIsInZhbHVlIjoid1NRT0VVcThsZXVBcWpkTTNlSHRudz09IiwibWFjIjoiZDJmZjJhZDgzZjNlNDZiZDdiY2IxNmQ1Mjc2YWJkM2Y2NmZhYjVlMjVjNzk2NGQzMWVmM2I4YjhhODc4NGJjZiIsInRhZyI6IiJ9';
 
     return Crypt::decryptString($encrypted);
+});
+
+Route::get('make-hash', function () {
+
+    // $newpwd = hash::make('12345678');
+    $newpwd = bcrypt('12345678');
+
+    // if (hash::check('12345678', $newpwd)) {
+    if (bcrypt('12345678', $newpwd)) {
+        return 'Matched';
+    }
+    return 'Not Matched';
 });
 
