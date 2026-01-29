@@ -32,7 +32,7 @@
     <div class="t-pt-120 t-pb-120">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-10 col-xl-8">
+                <div class="col-lg-6 col-xl-6">
                     <div class="row">
                         <div class="col">
 
@@ -58,24 +58,32 @@
                                 </div>
                             @endif
 
-                            <h4>Login</h4>
+                            <h4>Set New Password</h4>
                             <hr> <br>
-                            <form method="POST" action="{{ route('loginProcess') }}">
+                            <form method="POST" action="{{ route('new-password', $token) }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <input value="{{ old('email') }}" type="text" name="email" class="form-control"
-                                        placeholder="Email address or Username">
+                                    <input type="email" readonly name="email" value="{{ request()->email }}"
+                                        class="form-control" placeholder="Email">
                                 </div>
                                 <div class="mb-3">
                                     <input value="{{ old('password') }}" type="password" name="password"
-                                        class="form-control" placeholder="Password">
+                                        class="form-control" placeholder="New Password">
                                 </div>
                                 <div class="mb-3">
-                                    <input type="submit" class="btn btn-primary" value="Sign In">
+                                    <input value="{{ old('password_confirmation') }}" type="password"
+                                        name="password_confirmation" class="form-control"
+                                        placeholder="Confirm New Password">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="hidden" name="token" value="{{ $token }}" class="form-control"
+                                        placeholder="Token">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="submit" class="btn btn-primary" value="Set New Password">
                                 </div>
                             </form>
-                            <p>Forgot your password? <a href="{{ route('auth.reset-password') }}"> Click Here </a> to resend
-                                password</p>
+
                         </div>
                     </div>
                 </div>

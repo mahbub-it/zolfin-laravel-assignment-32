@@ -226,15 +226,24 @@ Route::get('/decrypt-value', function () {
     return Crypt::decryptString($encrypted);
 });
 
-Route::get('make-hash', function () {
+// Route::get('make-hash', function () {
 
-    // $newpwd = hash::make('12345678');
-    $newpwd = bcrypt('12345678');
+// $newpwd = hash::make('12345678');
+// $newpwd = bcrypt('12345678');
 
-    // if (hash::check('12345678', $newpwd)) {
-    if (bcrypt('12345678', $newpwd)) {
-        return 'Matched';
-    }
-    return 'Not Matched';
-});
+// if (hash::check('12345678', $newpwd)) {
+// if (bcrypt('12345678', $newpwd)) {
+//     return 'Matched';
+// }
+// return 'Not Matched';
+// });
 
+Route::get('/reset-password', [LoginController::class, 'resetPassword'])->name('auth.reset-password');
+
+Route::post('/reset-password', [LoginController::class, 'resetPasswordPost'])->name('auth.reset-password');
+
+Route::get('/reset-password/{token}', [LoginController::class, 'resetPasswordToken'])->name('password.reset');
+
+Route::get('/new-password', [LoginController::class, 'newPassword'])->name('new-password');
+
+Route::post('/new-password', [LoginController::class, 'newPasswordPost'])->name('new-password');
