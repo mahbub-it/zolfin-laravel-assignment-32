@@ -13,7 +13,6 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Hash;
 
 
-
 class LoginController extends Controller
 {
     public function register()
@@ -102,7 +101,9 @@ class LoginController extends Controller
     //Email Verify
     public function emailNotice()
     {
-        return 'You must verify your email first 24:28';
+        return view('authentication.varify-notice', [
+            'title' => 'Verify Email'
+        ]);
     }
 
     public function emailVerify(EmailVerificationRequest $request)
@@ -110,6 +111,12 @@ class LoginController extends Controller
         $request->fulfill();
 
         return redirect('/dashboard')->with('message', 'Email Verified Successfully');
+    }
+
+    public function emailVerifyPost(Request $request)
+    {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', 'The verification email has been sent! Please check your email');
     }
 
 }
@@ -136,4 +143,3 @@ class LoginController extends Controller
 // $user->password = bcrypt($request->password);
 // $user->save();
 // return redirect('/register')->with('message', 'User Created Successfully');
-

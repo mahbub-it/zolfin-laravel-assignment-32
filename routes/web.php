@@ -38,29 +38,27 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     ]);
 });
 
-Route::get('my-profile', [UserController::class, 'my_profile'])->name('users.profile');
-
-
-
+Route::get('my-profile', [UserController::class, 'my_profile'])->name('users.profile')->middleware('verified');
 
 Route::get('/blog', [BlogController::class, 'index'])->name("blog");
 Route::get('/article/{post:slug}', [BlogController::class, 'single'])->name('single-post');
-
-
 
 Route::get('/category/{category:slug}', [BlogController::class, 'categoryWisePosts']);
 
 Route::get('/users/{user:username}', [BlogController::class, 'userBasedPost'])->name('user-post');
 
-
-Route::get('login', [LoginController::class, 'login'])->name('login')->middleware('guest');
-Route::post('login', [LoginController::class, 'loginPost'])->name('loginProcess');
-
-// Show the registration form
+//Registration form
 Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'registerPost'])->name('registerProcess');
 
-Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+//Login form
+Route::get('login', [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::post('login', [LoginController::class, 'loginPost'])->name('loginProcess');
+
+//Dashboard
+Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+//Logout
 Route::post('logout', [LoginController::class, 'signout'])->name('logout')->middleware('auth');
 
 Route::get('secret/migrate', function () {
@@ -208,3 +206,5 @@ Route::get('/testcollect', function () {
 Route::get('/email/notice', [LoginController::class, 'emailNotice'])->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', [LoginController::class, 'emailVerify'])->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/resend-verification', [LoginController::class, 'emailVerifyPost'])->middleware('auth')->name('verification.send');
