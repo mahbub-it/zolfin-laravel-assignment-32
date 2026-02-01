@@ -15,8 +15,17 @@ use App\Models\User;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\NotificationController;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Artisan;
 
+=======
+use App\Http\Controllers\ContactController;
+use Illuminate\Support\Number;
+use Illuminate\Support\Facades\Collect;
+use Illuminate\Support\Facades\Map;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+>>>>>>> origin/main
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -34,29 +43,27 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     ]);
 });
 
-Route::get('my-profile', [UserController::class, 'my_profile'])->name('user.profile');
-
-
-
+Route::get('my-profile', [UserController::class, 'my_profile'])->name('users.profile')->middleware('verified');
 
 Route::get('/blog', [BlogController::class, 'index'])->name("blog");
 Route::get('/article/{post:slug}', [BlogController::class, 'single'])->name('single-post');
-
-
 
 Route::get('/category/{category:slug}', [BlogController::class, 'categoryWisePosts']);
 
 Route::get('/users/{user:username}', [BlogController::class, 'userBasedPost'])->name('user-post');
 
-
-Route::get('login', [LoginController::class, 'login'])->name('login')->middleware('guest');
-Route::post('login', [LoginController::class, 'loginPost'])->name('loginProcess');
-
-// Show the registration form
+//Registration form
 Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'registerPost'])->name('registerProcess');
 
-Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+//Login form
+Route::get('login', [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::post('login', [LoginController::class, 'loginPost'])->name('loginProcess');
+
+//Dashboard
+Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+//Logout
 Route::post('logout', [LoginController::class, 'signout'])->name('logout')->middleware('auth');
 
 Route::get('secret/migrate', function () {
@@ -133,3 +140,114 @@ Route::post('/csrf-test', function () {
     return 'Success';
 
 })->name('csrf-testing');
+
+
+
+
+// Route::get('/test-phone', function () {
+//     $phoneNumber = '+8801714497282';
+
+//     return $phoneNumber;
+// });
+
+//  return back()->with('success', 'User created successfully');
+
+// Route::get('/testnew/{phoneNumber}', function ($phoneNumber) {
+//     return redirect('http://google.com');
+// });
+
+// Route::get('/testnew/1', function () {
+//     return request()->cookie('anything');
+// })->name('testnew');
+
+// Route::get('/testdownload', function () {
+//     if (file_exists(public_path() . '/storage/assignment/1.pdf')) {
+//         return response()->download(public_path() . '/storage/assignment/1.pdf', 'assignment.pdf');
+//     }
+//     return 'File not found';
+// });
+
+// Route::get('/testdownload', function () {
+//     if (file_exists(public_path() . '/storage/assignment/1.pdf')) {
+//         return response()->file(public_path() . '/storage/assignment/1.pdf', 'assignment.pdf');
+//     }
+//     return 'File not found';
+// });
+
+// Route::get('pageone', function () {
+//     return 'first page <a href="pagetwo">Go to page two</a>';
+// });
+
+// Route::get('pagetwo', function () {
+//     return 'second page <a href="pageone">Go to page one</a>';
+// });
+
+Route::get('/testsession', function () {
+    session()->put(['name' => 'Mahbub']);
+});
+Route::get('/testsession2', function () {
+    return session()->get('name');
+});
+
+Route::get('/clearsession', function () {
+    session()->forget('name');
+    return 'Session cleared';
+});
+// php artisan session:table then php artisan migrate then SESSION_DRIVER=file to SESSION_DRIVER=database in .env file
+
+Route::get('/testcollect', function () {
+    // $test_collect = ['one', 'two', 'three', 1, 2, 3, 4, 5];
+
+    // return collect($test_collect)->count();
+
+    // return collect($test_collect)->map(function ($item) {
+    //     return 'I got ' . strtoupper($item) . ' taka ';
+    // });
+
+    $collection = collect([1, 2, 3, 4, 5]);
+    return $collection->sum();
+});
+
+Route::get('/email/notice', [LoginController::class, 'emailNotice'])->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', [LoginController::class, 'emailVerify'])->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/resend-verification', [LoginController::class, 'emailVerifyPost'])->middleware('auth')->name('verification.send');
+
+Route::get('/encrypt-value', function () {
+
+    $password = '123456';
+
+    $encrypted = Crypt::encryptString($password);
+
+    return $encrypted;
+});
+
+Route::get('/decrypt-value', function () {
+
+    $encrypted = 'eyJpdiI6IlJrOEJaWTU3UEk2aGZoUDV4bjVWd3c9PSIsInZhbHVlIjoid1NRT0VVcThsZXVBcWpkTTNlSHRudz09IiwibWFjIjoiZDJmZjJhZDgzZjNlNDZiZDdiY2IxNmQ1Mjc2YWJkM2Y2NmZhYjVlMjVjNzk2NGQzMWVmM2I4YjhhODc4NGJjZiIsInRhZyI6IiJ9';
+
+    return Crypt::decryptString($encrypted);
+});
+
+// Route::get('make-hash', function () {
+
+// $newpwd = hash::make('12345678');
+// $newpwd = bcrypt('12345678');
+
+// if (hash::check('12345678', $newpwd)) {
+// if (bcrypt('12345678', $newpwd)) {
+//     return 'Matched';
+// }
+// return 'Not Matched';
+// });
+
+Route::get('/reset-password', [LoginController::class, 'resetPassword'])->name('auth.reset-password');
+
+Route::post('/reset-password', [LoginController::class, 'resetPasswordPost'])->name('auth.reset-password');
+
+Route::get('/reset-password/{token}', [LoginController::class, 'resetPasswordToken'])->name('password.reset');
+
+Route::get('/new-password', [LoginController::class, 'newPassword'])->name('new-password');
+
+Route::post('/new-password', [LoginController::class, 'newPasswordPost'])->name('new-password');

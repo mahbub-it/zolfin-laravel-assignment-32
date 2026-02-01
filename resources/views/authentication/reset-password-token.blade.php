@@ -18,7 +18,7 @@
                             </a>
                         </li>
                         <li class="breadcrumbs__list">
-                            <a href="{{ route('blog')}} "
+                            <a href="{{ route('auth.reset-password')}} "
                                 class="t-link breadcrumbs__link t-link--light-alpha text-capitalize">
                                 {{ $title }}
                             </a>
@@ -58,24 +58,34 @@
                                 </div>
                             @endif
 
-                            <h4>Login</h4>
+                            @if(session()->has('email'))
+                                <div class="alert alert-success">
+                                    {{ session('email') }}
+                                </div>
+                            @endif
+
+                            @if(session()->has('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
+                            <h4>Reset your password</h4>
+                            <p>Enter your email address to get a password reset link</p>
                             <hr> <br>
-                            <form method="POST" action="{{ route('loginProcess') }}">
+                            <form method="POST" action="{{ route('auth.reset-password') }}">
                                 @csrf
+
                                 <div class="mb-3">
                                     <input value="{{ old('email') }}" type="text" name="email" class="form-control"
-                                        placeholder="Email address or Username">
+                                        placeholder="Email address">
                                 </div>
+
                                 <div class="mb-3">
-                                    <input value="{{ old('password') }}" type="password" name="password"
-                                        class="form-control" placeholder="Password">
-                                </div>
-                                <div class="mb-3">
-                                    <input type="submit" class="btn btn-primary" value="Sign In">
+                                    <input type="submit" class="btn btn-primary" value="Reset Password">
                                 </div>
                             </form>
-                            <p>Forgot your password? <a href="{{ route('auth.reset-password') }}"> Click Here </a> to resend
-                                password</p>
+
                         </div>
                     </div>
                 </div>
