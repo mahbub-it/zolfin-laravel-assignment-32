@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "dreamwebdev/dreamwebdev",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The DreamWebdev Laravel Framework.",
     "keywords": [
         "framework",
         "laravel"

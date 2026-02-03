@@ -15,17 +15,14 @@ use App\Models\User;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\NotificationController;
-<<<<<<< HEAD
-use Illuminate\Support\Facades\Artisan;
 
-=======
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Number;
 use Illuminate\Support\Facades\Collect;
 use Illuminate\Support\Facades\Map;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
->>>>>>> origin/main
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

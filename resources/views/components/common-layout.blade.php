@@ -34,7 +34,8 @@
                 <div class="col-7 col-lg-3 col-xl-2">
                     <div class="brand">
                         <a href="/" class="t-link">
-                            <img src="{{asset('assets/img/logo.png')}}" alt="zolfin" class="img-fluid w-100" />
+                            <img style="max-width:70px;" src="{{asset('assets/img/logo.png')}}" alt="zolfin"
+                                class="img-fluid" />
                         </a>
                     </div>
                 </div>

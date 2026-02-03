@@ -31,9 +31,9 @@
             <div style="max-width:150px; margin:auto;"
                 class="text-center bg-white navbar-brand-wrapper d-flex align-items-top justify-content-center">
                 <a class="navbar-brand brand-logo" href="{{ route('home') }}">
-                    <img src="{{ asset('/assets/img/logo.png') }}" alt="logo" /> </a>
+                    <img style="max-width:60px;" src="{{ asset('/assets/img/logo.png') }}" alt="logo" /> </a>
                 <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}">
-                    <img src="{{ asset('/assets/img/logo.png') }}" alt="logo" /> </a>
+                    <img style="max-width:70px;" src="{{ asset('/assets/img/logo.png') }}" alt="logo" /> </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center">
                 <ul class="navbar-nav">
